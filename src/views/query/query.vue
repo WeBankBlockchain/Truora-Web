@@ -9,8 +9,9 @@
             </div>
         </div>
         <div class="search-table module-wrapper" v-loading='loading'>
+            <p style="padding-top:10px;">请求查询详情:</p>
             <div style="padding: 20px 50px 30px 50px;line-height: 40px;">
-                <p>请求查询详情:</p>
+                
                 <ul v-if="JSON.stringify(searchResult) != '{}' ">
                     <li v-for="(item , index) in searchResultKeyList" class="result-item">
                         <template v-if="item.enName == 'result'">
@@ -22,7 +23,8 @@
                             <span class="result-val">{{searchResult[item.enName] | translateSourceType}}</span>
                         </template>
                         <template v-else-if="item.enName == 'reqQuery'">
-                            <span class="result-key">{{item.name}}：</span>
+                            <span class="result-key" v-if="searchResult['sourceType'] == '1'">随机数种子:</span>
+                            <span class="result-key" v-else>请求地址:</span>
                             <span class="result-val">{{searchResult[item.enName]}}</span>
                         </template>
                         <template v-else-if="item.enName == 'reqStatus'">   
@@ -107,14 +109,17 @@ export default {
             historyQuery(this.inputText)
                 .then(res => {
                     this.loading = false
+                    console.log(res);
                     const { status, data } = res
                     if (data.code === 0) {
                         this.searchResult = data.data
                     } else {
+                        this.searchResult = {}
                         this.errorMessage = '当前无法找到查询id，请稍后再试。。。'
                     }
                 })
                 .catch(err => {
+                    this.searchResult = {}
                     this.errorMessage = '当前无法找到查询id，请稍后再试。。。'
                 })
         },

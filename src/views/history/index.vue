@@ -18,7 +18,21 @@
         <v-contentHead :headTitle="`历史查询`"></v-contentHead>
         <div class="module-wrapper" style="padding-bottom: 20px;">
             <div class="search-part">
-
+                 <el-form :inline="true" :model="formInline" class="" :rules="rules" ref="ruleForm">
+                    <el-form-item label="链" prop="chainId">
+                        <el-select v-model="formInline.chainId" placeholder="链" @change="changeChain">
+                            <el-option v-for="item in allChainAndGroup" :label="item.chainId" :value="item.chainId" :key="item.chainId"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="群组" prop="groupId">
+                        <el-select v-model="formInline.groupId" placeholder="群组">
+                            <el-option v-for="item in groupList" :label="item" :value="item" :key="item"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit('ruleForm')">查询</el-button>
+                    </el-form-item>
+                </el-form>
             </div>
             <div class="search-table">
                 <el-table :data="list" tooltip-effect="dark" v-loading="loading">
@@ -52,7 +66,7 @@
 
 <script>
 import contentHead from "@/components/contentHead";
-import { historyList } from "@/util/api";
+import { historyList, getChainAndGroup } from "@/util/api";
 
 export default {
     name: "History",
@@ -62,6 +76,16 @@ export default {
     computed: {
         privateKeyHead() {
             var arr = [
+                {
+                    enName: "chainId",
+                    name: '链ID',
+                    tdWidth: '100'
+                },
+                {
+                    enName: "groupId",
+                    name: '群组ID',
+                    tdWidth: '100'
+                },
                 {
                     enName: "reqId",
                     name: '请求ID',
@@ -89,6 +113,25 @@ export default {
                 },
             ]
             return arr
+        },
+        rules() {
+            let data = {
+                chainId: [
+                    {
+                        required: true,
+                        message: '请选择链',
+                        trigger: "change"
+                    },
+                ],
+                groupId: [
+                    {
+                        required: true,
+                        message: '请选择群组',
+                        trigger: "change"
+                    },
+                ],
+            }
+            return data
         }
     },
     data() {
@@ -97,17 +140,53 @@ export default {
             currentPage: 1,
             pageSize: 10,
             total: 0,
-            list: []
+            list: [],
+            allChainAndGroup: [],
+            formInline: {
+                chainId: '',
+                groupId: ''
+            },
+            groupList: []
         };
     },
     mounted() {
-        this.queryHistory()
+        this.queryChainAndGroup()
+        // this.queryHistory()
     },
     methods: {
+        queryChainAndGroup() {
+            getChainAndGroup()
+                .then(res => {
+                    this.loading = false
+                    const { status, data } = res
+                    if (data.code === 0) {
+                        this.allChainAndGroup = data.data
+                        if (data.data.length > 0) {
+                            this.formInline.chainId = data.data[0]['chainId']
+                            this.groupList = data.data[0]['groupIdList']
+                            if (this.groupList.length > 0) {
+                                this.formInline.groupId = data.data[0]['groupIdList'][0]
+                            }
+                            this.onSubmit('ruleForm')
+                        }
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: data.message,
+                            duration: 2000
+                        })
+                    }
+                })
+                .catch(err => {
+
+                })
+        },
         queryHistory() {
             let reqData = {
                 pageNumber: this.currentPage,
-                pageSize: this.pageSize
+                pageSize: this.pageSize,
+                chainId: this.formInline.chainId,
+                groupId: this.formInline.groupId
             }
             historyList(reqData)
                 .then(res => {
@@ -163,6 +242,23 @@ export default {
                     });
                 });
             }
+        },
+        changeChain(val) {
+            this.allChainAndGroup.forEach(item => {
+                if (val == item.chainId) {
+                    this.groupList = item.groupIdList
+                }
+            })
+        },
+        onSubmit(formName) {
+            this.$refs[formName].validate(valid => {
+                if (valid) {
+                    this.loading = true;
+                    this.queryHistory()
+                } else {
+                    return false;
+                }
+            });
         },
     }
 };
