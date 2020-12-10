@@ -1,0 +1,79 @@
+{
+  "id": "2240904",
+  "name": "webase-oracle",
+  "font_family": "iconfont",
+  "css_prefix_text": "oracle-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1031017",
+      "name": "详情",
+      "font_class": "xiangqing1",
+      "unicode": "e769",
+      "unicode_decimal": 59241
+    },
+    {
+      "icon_id": "17329634",
+      "name": "合约",
+      "font_class": "heyue",
+      "unicode": "e6c7",
+      "unicode_decimal": 59079
+    },
+    {
+      "icon_id": "1800707",
+      "name": "工具",
+      "font_class": "tool",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "6582366",
+      "name": "网络",
+      "font_class": "wangluo",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "12036461",
+      "name": "随机01",
+      "font_class": "random",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "963406",
+      "name": "Oracle",
+      "font_class": "xuniku",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "1167139",
+      "name": "查询",
+      "font_class": "chaxun",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "5829520",
+      "name": "服务列表",
+      "font_class": "wulumuqishigongandashujuguanlipingtai-ico-",
+      "unicode": "e7f0",
+      "unicode_decimal": 59376
+    },
+    {
+      "icon_id": "9656288",
+      "name": "历史记录",
+      "font_class": "lishijilu",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "11495055",
+      "name": "详情",
+      "font_class": "xiangqing",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    }
+  ]
+}
