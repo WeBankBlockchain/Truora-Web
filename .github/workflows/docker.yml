@@ -13,7 +13,6 @@ on:
 env:
   DOCKER_REPOSITORY: trustoracle-web
 
-
 jobs:
   main:
     runs-on: ubuntu-latest
