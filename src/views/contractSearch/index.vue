@@ -75,11 +75,11 @@ export default {
                     name: "OracleCore合约地址",
                     tdWidth: ""
                 },
-                {
-                    enName: "vrfContractAddress",
-                    name: "VRF合约地址",
-                    tdWidth: ""
-                }
+                // {
+                //     enName: "vrfContractAddress",
+                //     name: "VRF合约地址",
+                //     tdWidth: ""
+                // }
             ]
             return arr
         }
