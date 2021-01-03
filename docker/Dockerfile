@@ -1,5 +1,5 @@
 #### run command:
-####    docker run --name trustoracle-web -d -p 5000:5000 fiscoorg/trustoracle-web:latest
+####    docker run --name trustoracle-web -d -p 5020:5020 fiscoorg/trustoracle-web:latest
 
 
 FROM nginx:stable-alpine as prod
@@ -12,7 +12,7 @@ COPY index.html /usr/share/nginx/html
 COPY static /usr/share/nginx/html/static
 
 # expose port
-EXPOSE 5000
+EXPOSE 5020
 
 # set evn for nodejs
 ENV NODE_ENV "production"
