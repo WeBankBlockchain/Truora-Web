@@ -62,7 +62,7 @@ dev: {
         assetsPublicPath: '/',
         proxyTable: {
         '/oracle':{
-            target:'http://127.0.0.1:5012/',  //在此修改跨域地址，这里是服务ip和端口，且可以访问
+            target:'http://127.0.0.1:5021/',  //在此修改跨域地址，这里是服务ip和端口，且可以访问
             changeOrigin:true,
             pathRewrite:{
                 '^/oracle':''
@@ -127,11 +127,11 @@ nginx配置
 
 ```Nginx
     upstream oracle_server{
-        server 10.0.0.1:5012; # 服务ip和端口
+        server 10.0.0.1:5021; # 服务ip和端口
     }
     server {
-        listen       5000 default_server; # 前端端口（端口需要开通策略且不能被占用）
-        server_name  127.0.0.1;           # 服务器ip，也可配置为域名
+        listen       5020 default_server; # 前端端口（端口需要开通策略且不能被占用）
+        server_name  0.0.0.0;           # 服务器ip，也可配置为域名
         location / {
                 root   /data/Oracle-Web/dist;   # 前端文件路径(文件需要有权限访问)
                 index  index.html index.htm;
