@@ -17,7 +17,6 @@
     <div style="height: 100%;">
         <div style="height: 100%;background-color: #0c1220;box-sizing: border-box" class="sidebar-content" ref='sidebarContent'>
             <div class="image-flex justify-center center" style="height: 54px;position:relative;" v-if="menuShowC">
-                <!-- <span class="font-color-fff" style="font-weight: bold;font-size: 24px;">TrustOracle</span> -->
                     <img src="../../../static/image/trustoracle-logo.jpg" alt="" srcset="" style="width:120px">
             </div>
             <div class="mini-sidebar-contract-icon" v-if="!menuShowC" style="padding-bottom:40px">

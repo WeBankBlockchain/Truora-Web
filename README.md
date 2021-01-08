@@ -1,4 +1,4 @@
-# TrustOracle-Web
+# Trustoracle-Web
 开发文档
 
 
@@ -18,13 +18,13 @@ nodejs下载地址：https://nodejs.org/en/download/
 
 > 执行命令：
 
-    git clone https://github.com/WeBankBlockchain/TrustOracle-Web.git
+    git clone https://github.com/WeBankBlockchain/Trustoracle-Web.git
 
 将代码放在你的工作目录，例如：D：\project
 
 > 切换到项目目录：
 
-    cd D:\project\TrustOracle-Web
+    cd D:\project\Trustoracle-Web
 
 > 使用命令：
 
