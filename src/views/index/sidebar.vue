@@ -17,11 +17,8 @@
     <div style="height: 100%;">
         <div style="height: 100%;background-color: #0c1220;box-sizing: border-box" class="sidebar-content" ref='sidebarContent'>
             <div class="image-flex justify-center center" style="height: 54px;position:relative;" v-if="menuShowC">
-                <!-- <img :src="maxLog" alt="" style="width:120px"> -->
-                <span class="font-color-fff" style="font-weight: bold;font-size: 24px;">TrustOracle</span>
-                <!-- <span class="sidebar-contract-icon">
-                    <i class="el-icon-caret-left font-color-aeb1b5" @click="hideMune(true)" style="font-size: 18px;"></i>
-                </span> -->
+                <!-- <span class="font-color-fff" style="font-weight: bold;font-size: 24px;">TrustOracle</span> -->
+                    <img src="../../../static/image/trustoracle-logo.jpg" alt="" srcset="" style="width:120px">
             </div>
             <div class="mini-sidebar-contract-icon" v-if="!menuShowC" style="padding-bottom:40px">
                 <i class="el-icon-caret-right font-color-aeb1b5" @click="hideMune(false)" style="font-size: 18px;"></i>
