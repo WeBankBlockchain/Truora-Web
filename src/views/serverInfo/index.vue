@@ -15,7 +15,7 @@
  */
 <template>
     <div class="rivate-key-management-wrapper">
-        <v-contentHead :headTitle="`Oracle服务方列表`"></v-contentHead>
+        <v-contentHead :headTitle="`预言机服务列表`"></v-contentHead>
         <div class="module-wrapper" style="padding-bottom: 20px;">
             <div class="search-part">
                 <el-form :inline="true" :model="formInline" class="" :rules="rules" ref="ruleForm">

@@ -67,12 +67,12 @@ const routes = [
     {
         path: '/',
         component: main,
-        name: 'Oracle服务方列表',
+        name: '预言机服务列表',
         leaf: true,
         menuShow: true,
         iconCls: 'oracle-wangluo sidebar-icon',
         children: [
-            { path: '/serverInfo', component: serverInfo, name: 'Oracle服务方列表', enName: 'serverInfo', menuShow: true, meta: { requireAuth: false } }
+            { path: '/serverInfo', component: serverInfo, name: '预言机服务列表', enName: 'serverInfo', menuShow: true, meta: { requireAuth: false } }
         ]
     },
     // {
