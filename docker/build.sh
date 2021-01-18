@@ -36,12 +36,12 @@ __root="$(cd "$(dirname "${__dir}")" && pwd)" # <-- change this as it depends on
 
 ########################### properties config ##########################
 image_organization=fiscoorg
-image_name="trustoracle-web"
+image_name="truora-web"
 docker_push="no"
 latest_tag=latest
 new_tag=
 
-nginx_config=trustoracle-web.conf
+nginx_config=truora-web.conf
 
 
 ########################### parse param ##########################
