@@ -99,7 +99,6 @@ cp "${__root}"/docker/${nginx_config} "${__root}"/dist
 
 # docker build
 cd "${__root}"/dist && docker build -t "${image_repository}:${new_tag}" -f "${__root}"/docker/Dockerfile .
-cd "${__root}"/dist && docker build -t "${image_repository}:${new_tag}" -f Dockerfile .
 docker tag "${image_repository}:${new_tag}" "${image_repository}:${latest_tag}"
 
 # delete extra files
