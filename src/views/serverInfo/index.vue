@@ -128,12 +128,6 @@ export default {
                     minWidth: ''
                 },
                 {
-                    enName: "publicKeyList",
-                    name: "运营方公钥",
-                    tdWidth: "",
-                    minWidth: ''
-                },
-                {
                     enName: "url",
                     name: "访问地址",
                     tdWidth: "",
