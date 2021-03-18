@@ -71,15 +71,20 @@ export default {
                     tdWidth: '100'
                 },
                 {
+                    enName: "oracleCoreVersion",
+                    name: '版本号',
+                    tdWidth: ''
+                },
+                {
                     enName: "oracleCoreContractAddress",
                     name: "OracleCore合约地址",
                     tdWidth: ""
                 },
-                // {
-                //     enName: "vrfContractAddress",
-                //     name: "VRF合约地址",
-                //     tdWidth: ""
-                // }
+                {
+                    enName: "vrfContractAddress",
+                    name: "VRF合约地址",
+                    tdWidth: ""
+                }
             ]
             return arr
         }

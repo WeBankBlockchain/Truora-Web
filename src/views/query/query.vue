@@ -3,7 +3,7 @@
         <v-content-head :headTitle="'请求查询'"></v-content-head>
         <div class="module-wrapper" style="margin-bottom: 20px">
             <div class="search-part">
-                <el-input placeholder="请求ID" v-model="inputText" class="input-with-select">
+                <el-input placeholder="请求ID" v-model="inputText" class="input-with-select" @keyup.enter.native="search">
                     <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
                 </el-input>
             </div>
@@ -11,36 +11,74 @@
         <div class="search-table module-wrapper" v-loading='loading'>
             <p style="padding-top:10px;">请求查询详情:</p>
             <div style="padding: 20px 50px 30px 50px;line-height: 40px;">
-                
+
                 <ul v-if="JSON.stringify(searchResult) != '{}' ">
-                    <li v-for="(item , index) in searchResultKeyList" class="result-item">
-                        <template v-if="item.enName == 'result'">
-                            <span class="result-key">{{item.name}}：</span>
-                            <el-input type="textarea" class="result-val" v-model="searchResult[item.enName]"></el-input>
-                        </template>
-                        <template v-else-if="item.enName == 'sourceType'">
-                            <span class="result-key">{{item.name}}：</span>
-                            <span class="result-val">{{searchResult[item.enName] | translateSourceType}}</span>
-                        </template>
-                        <template v-else-if="item.enName == 'reqQuery'">
-                            <span class="result-key" v-if="searchResult['sourceType'] == '1'">随机数种子:</span>
-                            <span class="result-key" v-else>请求地址:</span>
-                            <span class="result-val">{{searchResult[item.enName]}}</span>
-                        </template>
-                        <template v-else-if="item.enName == 'reqStatus'">   
-                            <span class="result-key">{{item.name}}：</span>
-                            <span class="result-val">{{searchResult[item.enName] | translateReqStatus}}</span>
-                            <span v-if="searchResult['error']">（{{searchResult['error']}}）</span>
-                        </template>
-                        <template v-else-if="item.enName == 'processTime'">
-                            <span class="result-key">{{item.name}}：</span>
-                            <span class="result-val">{{searchResult[item.enName]}} ms</span>
-                        </template>
-                        <template v-else>
-                            <span class="result-key">{{item.name}}：</span>
-                            <span class="result-val">{{searchResult[item.enName]}}</span>
-                        </template>
-                    </li>
+                    <template v-if="searchResult['sourceType'] == '1'">
+                        <li v-for="(item , index) in searchResultVrfList" class="result-item">
+                            <template v-if="item.enName == 'result'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <el-input type="textarea" class="result-val" v-model="searchResult[item.enName]"></el-input>
+                            </template>
+                            <template v-else-if="item.enName == 'sourceType'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName] | translateSourceType}}</span>
+                            </template>
+
+                            <template v-else-if="item.enName == 'reqStatus'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName] | translateReqStatus}}</span>
+                                <span v-if="searchResult['error']">（{{searchResult['error']}}）</span>
+                            </template>
+                            <template v-else-if="item.enName == 'processTime'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName]}} ms</span>
+                            </template>
+                            <template v-else-if="item.enName == 'proof'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val" v-show="searchResult[item.enName]">
+                                    <i class="el-icon-copy-document font-12" @click="copyPubilcKey(searchResult[item.enName])" title="复制"></i>
+                                    {{searchResult[item.enName]}}
+                                </span>
+                            </template>
+                            <template v-else>
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName]}}</span>
+                            </template>
+                        </li>
+                    </template>
+                    <template v-else>
+                        <li v-for="(item , index) in searchResultKeyList" class="result-item">
+                            <template v-if="item.enName == 'result'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <el-input type="textarea" class="result-val" v-model="searchResult[item.enName]"></el-input>
+                            </template>
+                            <template v-else-if="item.enName == 'sourceType'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName] | translateSourceType}}</span>
+                            </template>
+                            <template v-else-if="item.enName == 'reqStatus'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName] | translateReqStatus}}</span>
+                                <span v-if="searchResult['error']">（{{searchResult['error']}}）</span>
+                            </template>
+                            <template v-else-if="item.enName == 'processTime'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName]}} ms</span>
+                            </template>
+                            <template v-else-if="item.enName == 'proof'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val" v-show="searchResult[item.enName]">
+                                    <i class="el-icon-copy-document font-12" @click="copyPubilcKey(searchResult[item.enName])" title="复制"></i>
+                                    {{searchResult[item.enName]}}
+                                </span>
+                            </template>
+                            <template v-else>
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName]}}</span>
+                            </template>
+                        </li>
+                    </template>
+
                 </ul>
                 <p v-if="errorMessage">{{errorMessage}}</p>
             </div>
@@ -63,36 +101,70 @@ export default {
             inputText: '',
             searchResult: {},
             errorMessage: '',
+            baseType: true,
             // searchResultKeyList: ['sourceType', 'reqQuery', 'userContract', 'processTime', 'reqStatus', 'result', 'timesAmount', 'createTime', 'modifyTime'],
             searchResultKeyList: [{
                 enName: 'sourceType',
-                name:'请求类型'
-            },{
+                name: '请求类型'
+            }, {
                 enName: 'reqQuery',
-                name:'请求地址'
-            },{
+                name: '请求地址'
+            }, {
                 enName: 'userContract',
-                name:'用户合约地址'
-            },{
+                name: '用户合约地址'
+            }, {
                 enName: 'processTime',
-                name:'处理时长'
-            },{
+                name: '处理时长'
+            }, {
                 enName: 'reqStatus',
-                name:'请求状态'
-            },{
+                name: '请求状态'
+            }, {
                 enName: 'result',
-                name:'请求结果'
-            },{
-                enName: 'timesAmount',
-                name:'放大倍数'
-            },{
+                name: '随机数结果'
+            }, {
                 enName: 'createTime',
-                name:'创建时间'
-            },{
+                name: '创建时间'
+            }, {
                 enName: 'modifyTime',
-                name:'完成时间'
-            },]
-        }   
+                name: '完成时间'
+            },],
+            searchResultVrfList: [{
+                enName: 'sourceType',
+                name: '请求类型'
+            }, {
+                enName: 'inputSeed',
+                name: '随机数种子'
+            }, {
+                enName: 'actualSeed',
+                name: '实际种子'
+            }, {
+                enName: 'userContract',
+                name: '用户合约地址'
+            }, {
+                enName: 'processTime',
+                name: '处理时长'
+            }, {
+                enName: 'reqStatus',
+                name: '请求状态'
+            }, {
+                enName: 'result',
+                name: '随机数结果'
+            }, {
+                enName: 'proof',
+                name: 'Proof'
+            }, {
+                enName: 'createTime',
+                name: '创建时间'
+            }, {
+                enName: 'modifyTime',
+                name: '完成时间'
+            },],
+        }
+    },
+    computed: {
+        roughScale() {
+
+        }
     },
     mounted() {
         if (this.$route.query.reqId) {
@@ -142,6 +214,20 @@ export default {
                 });
             }
         },
+        // roughScale(val){
+        //     this.baseType != this.baseType
+        //     this.result(val)
+        // },
+        // result(val){
+        //     console.log(val.toString(16));
+        //     var result = val
+        //     if(this.baseType){
+
+        //     }else {
+        //         result.toString(16)
+        //     }
+        //     return result
+        // }
     }
 }
 </script>
@@ -155,6 +241,10 @@ export default {
     min-width: 120px;
 }
 .result-val {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: inline-block;
+
 }
 </style>
