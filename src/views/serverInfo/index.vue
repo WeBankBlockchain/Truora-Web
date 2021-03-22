@@ -153,7 +153,7 @@ export default {
                 },
                 {
                     enName: "latestRequstProcessedTime",
-                    name: "请求时长(ms)",
+                    name: "请求平均时长",
                     tdWidth: "",
                     minWidth: ''
                 },
