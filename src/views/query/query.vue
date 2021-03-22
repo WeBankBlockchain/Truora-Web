@@ -17,7 +17,7 @@
                         <li v-for="(item , index) in searchResultVrfList" class="result-item">
                             <template v-if="item.enName == 'result'">
                                 <span class="result-key">{{item.name}}：</span>
-                                <el-input type="textarea" class="result-val" v-model="searchResult[item.enName]"></el-input>
+                                <span class="result-val">{{searchResult[item.enName]}}</span>
                             </template>
                             <template v-else-if="item.enName == 'sourceType'">
                                 <span class="result-key">{{item.name}}：</span>
@@ -38,6 +38,13 @@
                                 <span class="result-val" v-show="searchResult[item.enName]">
                                     <i class="el-icon-copy-document font-12" @click="copyPubilcKey(searchResult[item.enName])" title="复制"></i>
                                     {{searchResult[item.enName]}}
+                                </span>
+                            </template>
+                            <template v-else-if="item.enName == 'inputSeed'">
+                                <span class="result-key">{{item.name}}：</span>
+                                <span class="result-val">{{searchResult[item.enName]}}
+                                    <!-- <el-button type="text" @click="handleHex(searchResult[item.enName])">转换16进制-></el-button>
+                                    <span>{{hexVal}}</span> -->
                                 </span>
                             </template>
                             <template v-else>
@@ -159,6 +166,7 @@ export default {
                 enName: 'modifyTime',
                 name: '完成时间'
             },],
+            hexVal: ''
         }
     },
     computed: {
@@ -214,20 +222,10 @@ export default {
                 });
             }
         },
-        // roughScale(val){
-        //     this.baseType != this.baseType
-        //     this.result(val)
-        // },
-        // result(val){
-        //     console.log(val.toString(16));
-        //     var result = val
-        //     if(this.baseType){
-
-        //     }else {
-        //         result.toString(16)
-        //     }
-        //     return result
-        // }
+        handleHex(val){
+            var val = +val
+            this.hexVal = `0x${val.toString(16)}`
+        }
     }
 }
 </script>
