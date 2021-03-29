@@ -25,13 +25,13 @@
                     <el-table-column v-for="head in privateKeyHead" :label="head.name" :key="head.enName" show-overflow-tooltip :width="head.tdWidth" align="center">
                         <template slot-scope="scope">
                             <span v-if="head.enName ==='oracleCoreContractAddress'">
-                                <i class="wbs-icon-copy font-12 copy-public-key" @click="copyPubilcKey(scope.row[head.enName])" title="复制"></i>
+                                <i class="el-icon-copy-document" @click="copyPubilcKey(scope.row[head.enName])" title="复制"></i>
                                 <span>
                                     {{scope.row[head.enName]}}
                                 </span>
                             </span>
                             <span v-else-if="head.enName ==='vrfContractAddress'">
-                                <i class="wbs-icon-copy font-12 copy-public-key" @click="copyPubilcKey(scope.row[head.enName])" title="复制"></i>
+                                <i class="el-icon-copy-document" @click="copyPubilcKey(scope.row[head.enName])" title="复制"></i>
                                 <span>{{scope.row[head.enName]}}</span>
                             </span>
                             <span v-else>{{scope.row[head.enName]}}</span>
