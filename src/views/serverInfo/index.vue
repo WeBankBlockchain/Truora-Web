@@ -128,6 +128,12 @@ export default {
                     minWidth: ''
                 },
                 {
+                    enName: "publicKeyList",
+                    name: "运营方公钥",
+                    tdWidth: "",
+                    minWidth: ''
+                },
+                {
                     enName: "url",
                     name: "访问地址",
                     tdWidth: "",
@@ -147,7 +153,7 @@ export default {
                 },
                 {
                     enName: "latestRequstProcessedTime",
-                    name: "请求时长(ms)",
+                    name: "请求平均时长",
                     tdWidth: "",
                     minWidth: ''
                 },
